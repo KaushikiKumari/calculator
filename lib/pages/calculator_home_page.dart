@@ -53,8 +53,11 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
         ),
       ), //AppBar
       backgroundColor: const Color(0xFF374352),
-      body: SingleChildScrollView(
+      body: SizedBox(
+        height: MediaQuery.of(context).size.height,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.end,
           children: <Widget>[
             SizedBox(
               height: MediaQuery.of(context).size.height / 8,
@@ -67,7 +70,8 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
                       alignment: Alignment.centerRight,
                       child: Text(
                         userInput,
-                        style: const TextStyle(fontSize: 18, color: Colors.white),
+                        style:
+                            const TextStyle(fontSize: 18, color: Colors.white),
                       ),
                     ),
                     Container(
@@ -83,89 +87,102 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
                     )
                   ]),
             ), // get input and print output
-            GridView.builder(
-                itemCount: buttons.length,
+           const Divider(
+              height: 0.3,
+              color: Colors.white54,
+            ),
+            Align(
+              alignment: Alignment.bottomCenter,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  GridView.builder(
+                      itemCount: buttons.length,
 // depends in the list assign above
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 4),
-                itemBuilder: (BuildContext context, int index) {
-                  // Clear Button
-                  if (index == 0) {
-                    return MyButton(
-                      buttontapped: () {
-                        setState(() {
-                          userInput = '';
-                          answer = '0';
-                        });
-                      },
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 4),
+                      itemBuilder: (BuildContext context, int index) {
+                        // Clear Button
+                        if (index == 0) {
+                          return MyButton(
+                            buttontapped: () {
+                              setState(() {
+                                userInput = '';
+                                answer = '0';
+                              });
+                            },
 //Tapping on this button it will clear the data
-                      buttonText: buttons[index],
-                    );
-                  }
+                            buttonText: buttons[index],
+                          );
+                        }
 
-                  // +/- button
-                  else if (index == 1) {
-                    return MyButton(
-                      // buttontapped: () {
-                      //   setState(() {
-                      //     userInput += buttons[index];
-                      //   });
-                      // },
+                        // +/- button
+                        else if (index == 1) {
+                          return MyButton(
+                            // buttontapped: () {
+                            //   setState(() {
+                            //     userInput += buttons[index];
+                            //   });
+                            // },
 //for now nothing is assign here !
-                      buttonText: buttons[index],
-                    );
-                  }
-                  // % Button
-                  else if (index == 2) {
-                    return MyButton(
-                      buttontapped: () {
-                        setState(() {
-                          userInput += buttons[index];
-                        });
-                      },
-                      buttonText: buttons[index],
-                    );
-                  }
-                  // Delete Button
-                  else if (index == 3) {
-                    return MyButton(
-                      buttontapped: () {
-                        setState(() {
-                          userInput =
-                              userInput.substring(0, userInput.length - 1);
-                        });
-                      },
+                            buttonText: buttons[index],
+                          );
+                        }
+                        // % Button
+                        else if (index == 2) {
+                          return MyButton(
+                            buttontapped: () {
+                              setState(() {
+                                userInput += buttons[index];
+                              });
+                            },
+                            buttonText: buttons[index],
+                          );
+                        }
+                        // Delete Button
+                        else if (index == 3) {
+                          return MyButton(
+                            buttontapped: () {
+                              setState(() {
+                                userInput =
+                                    userInput.substring(0, userInput.length - 1);
+                              });
+                            },
 //Tapping on this button it will delete the data one by one
-                      buttonText: buttons[index],
-                    );
-                  }
-                  // Equal_to Button
-                  else if (index == 18) {
-                    return MyButton(
-                      buttontapped: () {
-                        setState(() {
-                          equalPressed();
-                        });
-                      },
+                            buttonText: buttons[index],
+                          );
+                        }
+                        // Equal_to Button
+                        else if (index == 18) {
+                          return MyButton(
+                            buttontapped: () {
+                              setState(() {
+                                equalPressed();
+                              });
+                            },
 //Tapping on this button it will print the final result!
-                      buttonText: buttons[index],
-                    );
-                  }
+                            buttonText: buttons[index],
+                          );
+                        }
 
-                  // other buttons
-                  else {
-                    return MyButton(
-                      buttontapped: () {
-                        setState(() {
-                          userInput += buttons[index];
-                        });
-                      },
-                      buttonText: buttons[index],
-                    );
-                  }
-                }), // calculator buttons
+                        // other buttons
+                        else {
+                          return MyButton(
+                            buttontapped: () {
+                              setState(() {
+                                userInput += buttons[index];
+                              });
+                            },
+                            buttonText: buttons[index],
+                          );
+                        }
+                      }), // calculator buttons
+                ],
+              ),
+            )
           ],
         ),
       ),
