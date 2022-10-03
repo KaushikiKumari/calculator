@@ -8,7 +8,7 @@ class MyButton extends StatelessWidget {
   final buttontapped;
 
 //Constructor
-  MyButton({required this.buttonText, this.buttontapped});
+  const MyButton({super.key, required this.buttonText, this.buttontapped});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class MyButton extends StatelessWidget {
         padding: const EdgeInsets.all(10),
         child: NeuContainer(
           darkMode: true,
-          borderRadius: BorderRadius.circular(60),
+          borderRadius: BorderRadius.circular(80),
           child: Center(
             child: Text(
               buttonText,

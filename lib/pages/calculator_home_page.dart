@@ -12,8 +12,9 @@ class CalculatorHomePage extends StatefulWidget {
 }
 
 class _CalculatorHomePageState extends State<CalculatorHomePage> {
-  var userInput = '';
-  var answer = '';
+  // variables
+  var userInput = ''; // for user input
+  var answer = ''; // for calculator answer
 
 // Array of button
   final List<String> buttons = [
@@ -37,7 +38,7 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
     '.',
     '=',
     '+',
-  ];
+  ]; // shown in gridview.builder (index wise)
 
   @override
   Widget build(BuildContext context) {
@@ -52,37 +53,41 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
         ),
       ), //AppBar
       backgroundColor: const Color(0xFF374352),
-      body: Column(
-        children: <Widget>[
-          Expanded(
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      userInput,
-                      style: const TextStyle(fontSize: 18, color: Colors.white),
+      body: SingleChildScrollView(
+        child: Column(
+          children: <Widget>[
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 8,
+              child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        userInput,
+                        style: const TextStyle(fontSize: 18, color: Colors.white),
+                      ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(15),
-                    alignment: Alignment.centerRight,
-                    child: Text(
-                      answer,
-                      style: const TextStyle(
-                          fontSize: 30,
-                          color: Colors.white,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  )
-                ]),
-          ),
-          Expanded(
-            flex: 2,
-            child: GridView.builder(
+                    Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 15),
+                      alignment: Alignment.centerRight,
+                      child: Text(
+                        answer,
+                        style: const TextStyle(
+                            fontSize: 30,
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    )
+                  ]),
+            ), // get input and print output
+            GridView.builder(
                 itemCount: buttons.length,
+// depends in the list assign above
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 4),
                 itemBuilder: (BuildContext context, int index) {
@@ -95,6 +100,7 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
                           answer = '0';
                         });
                       },
+//Tapping on this button it will clear the data
                       buttonText: buttons[index],
                     );
                   }
@@ -107,6 +113,7 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
                       //     userInput += buttons[index];
                       //   });
                       // },
+//for now nothing is assign here !
                       buttonText: buttons[index],
                     );
                   }
@@ -130,6 +137,7 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
                               userInput.substring(0, userInput.length - 1);
                         });
                       },
+//Tapping on this button it will delete the data one by one
                       buttonText: buttons[index],
                     );
                   }
@@ -141,6 +149,7 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
                           equalPressed();
                         });
                       },
+//Tapping on this button it will print the final result!
                       buttonText: buttons[index],
                     );
                   }
@@ -154,26 +163,13 @@ class _CalculatorHomePageState extends State<CalculatorHomePage> {
                         });
                       },
                       buttonText: buttons[index],
-                      // color: isOperator(buttons[index])
-                      //     ? Colors.blueAccent
-                      //     : Colors.white,
-                      // textColor: isOperator(buttons[index])
-                      //     ? Colors.white
-                      //     : Colors.black,
                     );
                   }
-                }),
-          ),
-        ],
+                }), // calculator buttons
+          ],
+        ),
       ),
     );
-  }
-
-  bool isOperator(String x) {
-    if (x == '/' || x == 'x' || x == '-' || x == '+' || x == '=') {
-      return true;
-    }
-    return false;
   }
 
 // function to calculate the input operation

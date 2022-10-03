@@ -5,8 +5,11 @@ class NeuContainer extends StatefulWidget {
   final Widget child;
   final BorderRadius borderRadius;
 
-  NeuContainer(
-      {this.darkMode = false, required this.child, required this.borderRadius});
+  const NeuContainer(
+      {super.key,
+      this.darkMode = false,
+      required this.child,
+      required this.borderRadius});
 
   @override
   _NeuContainerState createState() => _NeuContainerState();
@@ -35,7 +38,7 @@ class _NeuContainerState extends State<NeuContainer> {
       onPointerUp: _onPointerUp,
       child: Container(
         decoration: BoxDecoration(
-            color:  const Color(0xFF374352),
+            color: const Color(0xFF374352),
             borderRadius: widget.borderRadius,
             boxShadow: _isPressed
                 ? null
